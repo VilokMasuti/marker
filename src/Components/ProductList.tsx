@@ -18,8 +18,8 @@ const ProductList: React.FC = () => {
 
   const { products, loading, setFilteredProducts } = context;
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState<string>('1');
+  const [productsPerPage] = useState<string>('8');
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [priceMinFilter, setPriceMinFilter] = useState<string>('');
   const [priceMaxFilter, setPriceMaxFilter] = useState<string>('');
@@ -62,11 +62,11 @@ const ProductList: React.FC = () => {
     setFilteredProducts(filtered);
   }, [products, categoryFilter, priceMinFilter, priceMaxFilter, sortingOption, searchQuery, setFilteredProducts]);
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const indexOfLastProduct = parseInt(currentPage) * parseInt(productsPerPage);
+  const indexOfFirstProduct = indexOfLastProduct - parseInt(productsPerPage);
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber.toString());
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategoryFilter(e.target.value || null);
@@ -99,7 +99,8 @@ const ProductList: React.FC = () => {
             type="text"
             id="searchQuery"
             name="searchQuery"
-            value={searchQuery}
+            value
+            ={searchQuery}
             onChange={handleSearchQueryChange}
             className="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search for products..."
@@ -117,7 +118,7 @@ const ProductList: React.FC = () => {
             onChange={handleCategoryChange}
           >
             <option value="">All</option>
-            {[...new Set(products.map((product: Product) => product.category))].map(category => (
+            {[...new Set(products.map(product => product.category))].map(category => (
               <option key={category} value={category}>
                 {category}
               </option>
@@ -183,16 +184,19 @@ const ProductList: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {currentProducts.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
         ))}
       </div>
       <div className="flex justify-center mt-4">
-        {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
+        {Array.from({ length: Math.ceil(products.length / parseInt(productsPerPage)) }, (_, i) => (
           <button
             key={i}
             onClick={() => paginate(i + 1)}
             className={`mx-1 px-4 py-2 rounded-md ${
-              currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
+              currentPage === (i + 1).toString() ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
             }`}
           >
             {i + 1}

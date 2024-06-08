@@ -1,40 +1,20 @@
-import React, { createContext, useReducer, ReactNode } from 'react';
-import { Product } from '../types';
+import React, { useContext } from 'react';
+import CartContext from '../Context/CartContext';
 
-interface CartState {
-  items: Product[];
-}
+const ProductCard = ({ product }: { product: any }) => {
+  const { dispatch } = useContext(CartContext);
 
-interface CartContextType {
-  state: CartState;
-  dispatch: React.Dispatch<ActionType>;
-}
-
-const initialState: CartState = {
-  items: [],
-};
-
-const CartContext = createContext<CartContextType | null>(null);
-
-const cartReducer = (state: CartState, action: ActionType): CartState => {
-  switch (action.type) {
-    case 'ADD_TO_CART':
-      return { ...state, items: [...state.items, action.payload] };
-    case 'REMOVE_FROM_CART':
-      return { ...state, items: state.items.filter(item => item.id !== action.payload.id) };
-    default:
-      return state;
-  }
-};
-
-export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
+  const addToCart = () => {
+    dispatch({ type: 'ADD_TO_CART', payload: product });
+  };
 
   return (
-    <CartContext.Provider value={{ state, dispatch }}>
-      {children}
-    </CartContext.Provider>
+    <div className="product-card">
+      <h3>{product.name}</h3>
+      <p>${product.price}</p>
+      <button onClick={addToCart}>Add to Cart</button>
+    </div>
   );
 };
 
-export default CartContext;
+export default ProductCard;
