@@ -1,20 +1,39 @@
-import React, { useContext } from 'react';
-import CartContext from '../Context/CartContext';
 
-const ProductCard = ({ product }: { product: any }) => {
-  const { dispatch } = useContext(CartContext);
+import React, { createContext, useReducer, useEffect } from 'react';
 
-  const addToCart = () => {
-    dispatch({ type: 'ADD_TO_CART', payload: product });
-  };
+const CartContext = createContext({
+  cart: [],
+  dispatch: () => null
+});
+
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_TO_CART':
+      return [...state, action.payload];
+    case 'REMOVE_FROM_CART':
+      return state.filter(item => item.id !== action.payload.id);
+    case 'LOAD_CART':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const CartProvider: React.FC = ({ children }) => {
+  const [cart, dispatch] = useReducer(cartReducer, [], () => {
+    const localData = localStorage.getItem('cart');
+    return localData ? JSON.parse(localData) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   return (
-    <div className="product-card">
-      <h3>{product.name}</h3>
-      <p>${product.price}</p>
-      <button onClick={addToCart}>Add to Cart</button>
-    </div>
+    <CartContext.Provider value={{ cart, dispatch }}>
+      {children}
+    </CartContext.Provider>
   );
 };
 
-export default ProductCard;
+export default CartContext;
