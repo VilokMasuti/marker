@@ -30,7 +30,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products,filteredProducts, categories, loading, setFilteredProducts }}>
+    <ProductContext.Provider value={{ products, categories, loading, setFilteredProducts }}>
       {children}
     </ProductContext.Provider>
   );

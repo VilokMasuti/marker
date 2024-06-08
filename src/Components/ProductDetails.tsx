@@ -10,7 +10,7 @@ const ProductDetails: React.FC = () => {
   if (!context) return null;
 
   const { products } = context;
-  const product = products.find((p: Product) => p.id === parseInt(productId, 10));
+  const product = products.find((p: Product) => p.id === parseInt(productId ?? '', 10));
 
   if (!product) {
     return <div>Product not found.</div>;

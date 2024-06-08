@@ -5,25 +5,23 @@ interface CartState {
   items: Product[];
 }
 
-type ActionType = 
-  | { type: 'ADD_TO_CART'; payload: Product }
-  | { type: 'REMOVE_FROM_CART'; payload: number };
-
-const initialState: CartState = {
-  items: []
-};
-
-const CartContext = createContext<{
+interface CartContextType {
   state: CartState;
   dispatch: React.Dispatch<ActionType>;
-}>({ state: initialState, dispatch: () => null });
+}
+
+const initialState: CartState = {
+  items: [],
+};
+
+const CartContext = createContext<CartContextType | null>(null);
 
 const cartReducer = (state: CartState, action: ActionType): CartState => {
   switch (action.type) {
     case 'ADD_TO_CART':
       return { ...state, items: [...state.items, action.payload] };
     case 'REMOVE_FROM_CART':
-      return { ...state, items: state.items.filter(item => item.id !== action.payload) };
+      return { ...state, items: state.items.filter(item => item.id !== action.payload.id) };
     default:
       return state;
   }

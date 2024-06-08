@@ -10,3 +10,7 @@ export interface Product {
         count: number;
       };
     }
+    // actionTypes.ts
+export type ActionType =
+| { type: 'ADD_TO_CART'; payload: Product }
+| { type: 'REMOVE_FROM_CART'; payload: Product };

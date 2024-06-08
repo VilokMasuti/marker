@@ -1,27 +1,14 @@
-import React, { useContext, } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
 import CartContext from '../Context/CartContext';
 
-import cart from '../assets/cart.svg';
-import sh from '../assets/sh.svg';
-
 const Header: React.FC = () => {
-  const { cart: cartItems } = useContext(CartContext);
-
+  const { state } = useContext(CartContext);
 
   return (
-    <header className="p-4  flex justify-between items-center">
-      <div className="flex items-center mt-[-30px]">
-        <img src={sh} alt="cart" width={100} height={100} />
-     
-      </div>
-      <div className="flex items-center relative  cursor-pointer">
-        <Link to="/cart" className="flex items-center text-white mr-4">
-          <img src={cart} alt="cart" width={100} height={100} className=' mt-[-50px] cursor-pointer' />
-          {cartItems.length > 0 && (
-            <span className=" text-black font-extrabold cursor-pointer text-4xl absolute top-[-130%] left-4">{cartItems.length}</span>
-          )}
-        </Link>
+    <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
+      <h1 className="text-xl font-bold">My Shop</h1>
+      <div>
+        <span>Cart ({state.items.length})</span>
       </div>
     </header>
   );
