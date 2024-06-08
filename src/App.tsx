@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext'; // Add this import
 import { ProductProvider } from './Context/ProductContext'; // Add this import

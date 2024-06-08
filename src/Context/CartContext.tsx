@@ -1,35 +1,39 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, ReactNode } from 'react';
+import { Product } from '../types';
 
-const CartContext = createContext({
-  cart: [],
-  dispatch: () => null
-});
+interface CartState {
+  items: Product[];
+}
 
-const cartReducer = (state, action) => {
+type ActionType = 
+  | { type: 'ADD_TO_CART'; payload: Product }
+  | { type: 'REMOVE_FROM_CART'; payload: number };
+
+const initialState: CartState = {
+  items: []
+};
+
+const CartContext = createContext<{
+  state: CartState;
+  dispatch: React.Dispatch<ActionType>;
+}>({ state: initialState, dispatch: () => null });
+
+const cartReducer = (state: CartState, action: ActionType): CartState => {
   switch (action.type) {
     case 'ADD_TO_CART':
-      return [...state, action.payload];
+      return { ...state, items: [...state.items, action.payload] };
     case 'REMOVE_FROM_CART':
-      return state.filter(item => item.id !== action.payload.id);
-    case 'LOAD_CART':
-      return action.payload;
+      return { ...state, items: state.items.filter(item => item.id !== action.payload) };
     default:
       return state;
   }
 };
 
-export const CartProvider: React.FC = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, [], () => {
-    const localData = localStorage.getItem('cart');
-    return localData ? JSON.parse(localData) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
   return (
-    <CartContext.Provider value={{ cart, dispatch }}>
+    <CartContext.Provider value={{ state, dispatch }}>
       {children}
     </CartContext.Provider>
   );

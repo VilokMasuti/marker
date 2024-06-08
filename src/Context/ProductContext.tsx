@@ -1,10 +1,9 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { fetchProducts, fetchCategories } from '../Data/productService';
 import { Product } from '../types';
 
 interface ProductContextType {
   products: Product[];
-  filteredProducts: Product[];
   categories: string[];
   loading: boolean;
   setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
@@ -12,11 +11,11 @@ interface ProductContextType {
 
 const ProductContext = createContext<ProductContextType | null>(null);
 
-export const ProductProvider: React.FC = ({ children }) => {
+export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -31,7 +30,7 @@ export const ProductProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, filteredProducts, categories, loading, setFilteredProducts }}>
+    <ProductContext.Provider value={{ products,filteredProducts, categories, loading, setFilteredProducts }}>
       {children}
     </ProductContext.Provider>
   );
