@@ -1,29 +1,61 @@
 # React + TypeScript + Vite
+How to run the app:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ensure npm is Installed: Before starting, make sure that npm (Node Package Manager) is installed on your system.
 
-Currently, two official plugins are available:
+Product List Application
+This React application allows users to view and filter a list of products based on categories, price ranges, and search queries. It also supports sorting products by price and rating. The app is designed to be responsive and user-friendly.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features
+Product Filtering: Filter products by category, minimum and maximum price, and search query.
+Sorting Options: Sort products by price (low to high and high to low) and by rating (high to low).
+Pagination: Paginate through the list of products with a configurable number of products per page.
+Loading Indicators: Display loading indicators while fetching products.
+Responsive Design: Optimized for both desktop and mobile views.
+Installation
+Clone the repository:
+sh
+Copy code
+git clone https://github.com/yourusername/product-list-app.git
+Navigate to the project directory:
+sh
+Copy code
+cd product-list-app
+Install dependencies:
+sh
+Copy code
+npm install
+Start the development server:
+sh
+Copy code
+npm start
+Usage
+Search: Use the search bar to find products by title.
+Filter: Select a category from the dropdown to filter products.
+Price Range: Enter minimum and maximum prices to filter products within a price range.
+Sort: Click on the sorting buttons to sort products by price or rating.
+Pagination: Navigate through pages using the pagination controls at the bottom.
+Contributing
+Contributions are welcome! Please follow these steps:
 
-## Expanding the ESLint configuration
+Fork the repository.
+Create a new branch:
+sh
+Copy code
+git checkout -b feature-name
+Make your changes and commit them:
+sh
+Copy code
+git commit -m 'Add new feature'
+Push to the branch:
+sh
+Copy code
+git push origin feature-name
+Open a pull request.
+License
+This project is licensed under the MIT License.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
