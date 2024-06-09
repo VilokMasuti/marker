@@ -1,14 +1,27 @@
 import { useContext } from 'react';
 import CartContext, { CartItem } from '../Context/CartContext';
-
+import { toast, } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import e from '../assets/e.svg'
 const Cart = () => {
   const { state: { cart }, dispatch } = useContext(CartContext);
 
   const removeFromCart = (product: CartItem) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: product });
+    toast.error('Your product has been  Removed.', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    
   };
 
-  if (cart.length === 0) return <p>Your cart is empty</p>;
+  if (cart.length === 0) return <img src={e} alt='' className=' lg:w-[30%] lg:h-[30%]  lg:ml-[30%] ' />;
 
   return (
     <div className="container mx-auto p-4">

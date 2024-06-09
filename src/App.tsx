@@ -5,7 +5,8 @@ import AppLayout from './Components/AppLayout';
 import Home from './pages/Home';
 import Cart from './Components/Cart';
 import ProductDetails from './Components/ProductDetails';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <main className='container mx-auto'>
+            <ToastContainer />
       <ProductProvider>
         <CartProvider>
           <RouterProvider router={router}/>

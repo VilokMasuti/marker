@@ -1,8 +1,8 @@
-// ProductList.tsx
 import React, { useContext, useState, ChangeEvent } from 'react';
 import ProductCard from './ProductCard';
 import ProductContext from '../Context/ProductContext';
-import { Product,ProductContextType  } from '../types';
+import { Product, ProductContextType } from '../types';
+import l from '../assets/l.svg';
 
 enum SortingOption {
   PRICE_LOW_TO_HIGH = 'PRICE_LOW_TO_HIGH',
@@ -23,9 +23,10 @@ const ProductList: React.FC = () => {
   const [priceMaxFilter, setPriceMaxFilter] = useState<string>('');
   const [sortingOption, setSortingOption] = useState<SortingOption | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  if (loading) return <p>Loading...</p>;
 
-  if (products.length === 0) return <p>No products available.</p>;
+  if (loading) return  <img src={l} alt="Loading" className="lg:w-[40%] lg:h-[40%] lg:ml-[30%] max-sm:w-[40%] max-sm:h-[40%] ml-[30%]" />;
+
+  if (products.length === 0) return <img src={l} alt="Loading" className="lg:w-[30%] lg:h-[30%] lg:ml-[30%]" />;
 
   let filteredProducts = products;
 
@@ -85,11 +86,11 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <div className=''>
-      <div className='bg-slate-100 shadow-lg'>
-        <div className="mb-4">
+    <div className="container mx-auto p-4">
+      <div className="flex flex-wrap gap-4 mb-4">
+        <div className="flex-grow">
           <label htmlFor="searchQuery" className="block text-sm font-medium text-gray-700">
-            Search for products
+            Search...!
           </label>
           <input
             type="text"
@@ -97,18 +98,18 @@ const ProductList: React.FC = () => {
             name="searchQuery"
             value={searchQuery}
             onChange={handleSearchQueryChange}
-            className="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search for products..."
           />
         </div>
-        <div className="mb-4">
+        <div className="flex-grow">
           <label htmlFor="category" className="block text-sm font-medium text-gray-700">
             Category
           </label>
           <select
             id="category"
             name="category"
-            className="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             value={categoryFilter ?? ''}
             onChange={handleCategoryChange}
           >
@@ -120,7 +121,7 @@ const ProductList: React.FC = () => {
             ))}
           </select>
         </div>
-        <div className="mb-4">
+        <div className="flex-grow">
           <label htmlFor="priceMin" className="block text-sm font-medium text-gray-700">
             Min Price
           </label>
@@ -130,10 +131,10 @@ const ProductList: React.FC = () => {
             name="priceMin"
             value={priceMinFilter}
             onChange={handlePriceMinChange}
-            className="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="flex-grow">
           <label htmlFor="priceMax" className="block text-sm font-medium text-gray-700">
             Max Price
           </label>
@@ -143,15 +144,15 @@ const ProductList: React.FC = () => {
             name="priceMax"
             value={priceMaxFilter}
             onChange={handlePriceMaxChange}
-            className="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="flex-grow">
           <label className="block text-sm font-medium text-gray-700">Sort by:</label>
-          <div className="mt-1 flex">
+          <div className="mt-1 flex gap-2">
             <button
               onClick={() => handleSortingOptionChange(SortingOption.PRICE_LOW_TO_HIGH)}
-              className={`px-3 py-1 rounded-md mr-2 ${
+              className={`px-3 py-1 rounded-md ${
                 sortingOption === SortingOption.PRICE_LOW_TO_HIGH ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
               }`}
             >
@@ -159,7 +160,7 @@ const ProductList: React.FC = () => {
             </button>
             <button
               onClick={() => handleSortingOptionChange(SortingOption.PRICE_HIGH_TO_LOW)}
-              className={`px-3 py-1 rounded-md mr-2 ${
+              className={`px-3 py-1 rounded-md ${
                 sortingOption === SortingOption.PRICE_HIGH_TO_LOW ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
               }`}
             >
@@ -167,7 +168,7 @@ const ProductList: React.FC = () => {
             </button>
             <button
               onClick={() => handleSortingOptionChange(SortingOption.RATING_HIGH_TO_LOW)}
-              className={`px-3 py-1 rounded-md mr-2 ${
+              className={`px-3 py-1 rounded-md ${
                 sortingOption === SortingOption.RATING_HIGH_TO_LOW ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
               }`}
             >
@@ -175,27 +176,27 @@ const ProductList: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {currentProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {currentProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+      <div className="mt-4">
+        <ul className="flex justify-center">
+          {Array.from({ length: Math.ceil(filteredProducts.length / productsPerPage) }, (_, index) => (
+            <li key={index} className="mx-1">
+              <button
+                onClick={() => paginate(index + 1)}
+                className={`px-3 py-1 rounded-md ${
+                  currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
+                }`}
+              >
+                {index + 1}
+              </button>
+            </li>
           ))}
-        </div>
-        <div className="mt-4">
-          <ul className="flex justify-center">
-            {Array.from({ length: Math.ceil(filteredProducts.length / productsPerPage) }, (_, index) => (
-              <li key={index} className="mx-1">
-                <button
-                  onClick={() => paginate(index + 1)}
-                  className={`px-3 py-1 rounded-md ${
-                    currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-800'
-                  }`}
-                >
-                  {index + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        </ul>
       </div>
     </div>
   );
