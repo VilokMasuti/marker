@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import  { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../types';
-import CartContext from '../Context/CartContext';
+import CartContext, { CartItem } from '../Context/CartContext';
 
 interface ProductCardProps {
   product: Product;
@@ -11,7 +11,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { dispatch } = useContext(CartContext);
 
   const addToCart = () => {
-    dispatch({ type: 'ADD_TO_CART', payload: product });
+    const cartItem: CartItem = { id: product.id.toString(), title: product.title, price: product.price };
+    dispatch({ type: 'ADD_TO_CART', payload: cartItem });
   };
 
   if (!product) {
