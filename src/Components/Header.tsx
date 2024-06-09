@@ -21,6 +21,7 @@ const Header: React.FC = () => {
   return (
     <header className="p-4 flex justify-between relative items-center">
       <motion.div className="flex items-center">
+        <Link to='/'>
         <motion.img 
           initial="hidden"
           animate="visible"
@@ -30,6 +31,8 @@ const Header: React.FC = () => {
           alt="shop logo" 
           className="w-[150px] h-auto max-sm:w-[40%]"
         />
+        </Link>
+      
       </motion.div>
       <div className="hidden sm:flex flex-row gap-1 lg:gap-6">
         <AnimatePresence>
