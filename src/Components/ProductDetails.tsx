@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductContext from '../Context/ProductContext';
-import { Product } from '../types';
+import { Product,ProductContextType } from '../types';
 
 const ProductDetails: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
-  const context = useContext(ProductContext);
+  const context = useContext<ProductContextType | null>(ProductContext);
 
   if (!context) return null;
 

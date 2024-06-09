@@ -1,13 +1,7 @@
+// ProductContext.tsx
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { fetchProducts, fetchCategories } from '../Data/productService';
-import { Product } from '../types';
-
-interface ProductContextType {
-  products: Product[];
-  categories: string[];
-  loading: boolean;
-  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-}
+import { Product, ProductContextType } from '../types';
 
 const ProductContext = createContext<ProductContextType | null>(null);
 

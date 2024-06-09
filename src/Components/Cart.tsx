@@ -1,11 +1,10 @@
-// src/components/Cart.tsx
-import React, { useContext } from 'react';
-import CartContext from '../Context/CartContext';
+import { useContext } from 'react';
+import CartContext, { CartItem } from '../Context/CartContext';
 
 const Cart = () => {
-  const { cart, dispatch } = useContext(CartContext);
+  const { state: { cart }, dispatch } = useContext(CartContext);
 
-  const removeFromCart = (product) => {
+  const removeFromCart = (product: CartItem) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: product });
   };
 
