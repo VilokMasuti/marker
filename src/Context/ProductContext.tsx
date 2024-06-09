@@ -9,7 +9,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [, setFilteredProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const loadProducts = async () => {
